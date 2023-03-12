@@ -1,26 +1,20 @@
 import './App.css';
+import {useThrottle} from "./useThrottle";
 import {useState} from "react";
-import {useUpdateEffect} from "./useUpdateEffect";
 
 function App() {
-    const [count, setCount] = useState(10);
-
-    // useDebounce(() => {
-    //     alert(count);
-    // }, 1000, [count])
-
-    useUpdateEffect(() => {
-        alert(count);
-    }, [count])
+    const [value, setValue] = useState('');
+    const throttleValue = useThrottle(value);
 
     return (
         <div className="App">
             <header className="App-header">
                 <p>
-                    {count}
+                    {throttleValue}
                 </p>
 
-                <button onClick={() => setCount(c => c+1)}>Increment</button>
+                <input value={value} onChange={(e) => setValue(e.target.value)} />
+
             </header>
         </div>
     );
