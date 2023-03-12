@@ -1,13 +1,13 @@
 import './App.css';
 import {useState} from "react";
-import {useTimeout} from "./useTimeout";
+import {useDebounce} from "./useDebounce";
 
 function App() {
     const [count, setCount] = useState(10);
 
-    const {set, clear} = useTimeout(() => {
-        setCount(0);
-    }, 1000);
+    useDebounce(() => {
+        alert(count);
+    }, 1000, [count])
 
     return (
         <div className="App">
@@ -17,8 +17,6 @@ function App() {
                 </p>
 
                 <button onClick={() => setCount(c => c+1)}>Increment</button>
-                <button onClick={clear}>Stop timeout</button>
-                <button onClick={set}>Stop timeout</button>
             </header>
         </div>
     );
