@@ -1,26 +1,33 @@
 import './App.css';
-import {useState} from "react";
-import {useUpdateEffect} from "./useUpdateEffect";
+import {useArray} from "./useArray";
+import {useDebounce} from "./useDebounce";
 
 function App() {
-    const [count, setCount] = useState(10);
+    const [values, {push, update, filter, remove, clear}] = useArray([0, 0, 1,2,3,4,5,6]);
 
-    // useDebounce(() => {
+    useDebounce(() => {
+        filter(a => a !== 0)
+    }, 1000, [values]);
+
+    // useUpdateEffect(() => {
     //     alert(count);
-    // }, 1000, [count])
-
-    useUpdateEffect(() => {
-        alert(count);
-    }, [count])
+    // }, [count]);
 
     return (
         <div className="App">
             <header className="App-header">
                 <p>
-                    {count}
+                    [{values.join(',')}]
                 </p>
 
-                <button onClick={() => setCount(c => c+1)}>Increment</button>
+                <button onClick={() => push(values.length)}>Push</button>
+
+                <button onClick={() => update(3, 777)}>Update</button>
+
+                <button onClick={() => remove(3)}>Remove</button>
+
+                <button onClick={() => clear()}>Clear</button>
+
             </header>
         </div>
     );
