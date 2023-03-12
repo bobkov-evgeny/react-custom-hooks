@@ -1,13 +1,17 @@
 import './App.css';
 import {useState} from "react";
-import {useDebounce} from "./useDebounce";
+import {useUpdateEffect} from "./useUpdateEffect";
 
 function App() {
     const [count, setCount] = useState(10);
 
-    useDebounce(() => {
+    // useDebounce(() => {
+    //     alert(count);
+    // }, 1000, [count])
+
+    useUpdateEffect(() => {
         alert(count);
-    }, 1000, [count])
+    }, [count])
 
     return (
         <div className="App">
