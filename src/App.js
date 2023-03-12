@@ -1,21 +1,29 @@
 import './App.css';
-import {useThrottle} from "./useThrottle";
-import {useState} from "react";
+import { useFetch } from './useFetch';
 
 function App() {
-    const [value, setValue] = useState('');
-    const throttleValue = useThrottle(value);
+    const {
+        data,
+        isLoading,
+        error,
+        refetch
+    } = useFetch('https://jsonplaceholder.typicode.com/posts');
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    {throttleValue}
-                </p>
+        <div>
+            <div>
+                <button onClick={() => refetch({
+                    params: {
+                        _limit: 3
+                    }
+                })}>
+                    Перезапросить
+                </button>
+            </div>
 
-                <input value={value} onChange={(e) => setValue(e.target.value)} />
-
-            </header>
+            {isLoading && 'Загрузка...'}
+            {error && 'Произошла ошибка'}
+            {data && !isLoading && data.map(item => <div key={item.id}>{item.title}</div>) }
         </div>
     );
 }
