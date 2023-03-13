@@ -1,22 +1,12 @@
-import './App.css';
-import {useThrottle} from "./useThrottle";
-import {useState} from "react";
+import { useViewportSize } from './useViewportSize';
 
 function App() {
-    const [value, setValue] = useState('');
-    const throttleValue = useThrottle(value);
+    const { height, width } = useViewportSize();
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    {throttleValue}
-                </p>
-
-                <input value={value} onChange={(e) => setValue(e.target.value)} />
-
-            </header>
-        </div>
+        <>
+            Width: {width}, height: {height}
+        </>
     );
 }
 
