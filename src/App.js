@@ -1,15 +1,30 @@
 import './App.css';
-import {useWindowScroll} from "./useWindowScroll";
+import {useToggleAdvanced} from "./useToggleAdvanced";
 
 function App() {
-    const [scroll, scrollTo] = useWindowScroll();
+    const [value, toggle] = useToggleAdvanced(['blue', 'orange', 'cyan', 'teal']);
 
     return (
-        <div style={{height: '2000px', width: '3000px'}}>
-            <p>
-                Scroll position x: {scroll.x}, y: {scroll.y}
-            </p>
-            <button onClick={() => scrollTo({ y: 0 })}>Scroll to top</button>
+        <div style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '100px'}}>
+            <button onClick={() => toggle()} style={{color: value}}>
+                {value}
+            </button>
+
+            <button onClick={() => toggle('blue')}>
+                select blue
+            </button>
+
+            <button onClick={() => toggle('cyan')}>
+                select cyan
+            </button>
+
+            <button onClick={() => toggle('orange')}>
+                select orange
+            </button>
+
+            <button onClick={() => toggle('teal')}>
+                select teal
+            </button>
         </div>
     );
 }
