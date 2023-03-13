@@ -1,21 +1,15 @@
 import './App.css';
-import {useThrottle} from "./useThrottle";
-import {useState} from "react";
+import {useWindowScroll} from "./useWindowScroll";
 
 function App() {
-    const [value, setValue] = useState('');
-    const throttleValue = useThrottle(value);
+    const [scroll, scrollTo] = useWindowScroll();
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <p>
-                    {throttleValue}
-                </p>
-
-                <input value={value} onChange={(e) => setValue(e.target.value)} />
-
-            </header>
+        <div style={{height: '2000px', width: '3000px'}}>
+            <p>
+                Scroll position x: {scroll.x}, y: {scroll.y}
+            </p>
+            <button onClick={() => scrollTo({ y: 0 })}>Scroll to top</button>
         </div>
     );
 }
